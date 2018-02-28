@@ -2,7 +2,7 @@ using System;
 
 namespace Rave.Models.Events
 {
-    public class SuccessEventArgs
+    public class SuccessEventArgs: EventArgs
     {
         
     }

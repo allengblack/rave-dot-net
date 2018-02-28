@@ -2,7 +2,7 @@ using System;
 
 namespace Rave.Models.Events
 {
-    public class TimeoutEventArgs
+    public class TimeoutEventArgs: EventArgs
     {
         
     }
