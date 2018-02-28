@@ -16,7 +16,30 @@ namespace Rave
         public string IntegrityHash { get;  set; }
         protected ConfigModel Config { get; set; }
         protected PaymentRequestModel Request { get; set; }
-        protected dynamic TransactionData { get; set; }
+        protected dynamic TransactionData { 
+            get {
+                return new {
+                    PBFPubKey = this.Config.PublicKey, 
+                    amount = this.Request.Amount, 
+                    customer_email = this.Request.CustomerEmail, 
+                    customer_firstname = this.Request.CustomerFirstname, 
+                    txref = this.Request.TransactionReference, 
+                    payment_method = this.Request.PaymentMethod, 
+                    customer_lastname = this.Request.CustomerLastname, 
+                    country = this.Request.Country, 
+                    currency = this.Request.Currency, 
+                    custom_description = this.Request.CustomDescription, 
+                    custom_logo = this.Request.CustomLogo, 
+                    custom_title = this.Request.CustomTitle, 
+                    customer_phone = this.Request.CustomerPhone,
+                    pay_button_text = this.Request.PayButtonText,
+                    redirect_url = this.Config.RedirectUrl,
+                    hosted_payment = 1,
+                    integrity_hash = this.IntegrityHash,
+                    meta = this.Config.Meta
+                };
+            }
+        }
 
         protected SHA256Managed hash;
 
@@ -52,6 +75,29 @@ namespace Rave
             byte[] transformedBytes = hash.ComputeHash(bytes);
             
             return this.IntegrityHash = Encoding.UTF8.GetString(transformedBytes);
+        }
+
+        public string RenderHtml() {
+            this.CreateCheckSum();
+            var transactionData = this.TransactionData;
+            this.OnInit(new InitEventArgs() {
+                
+            });
+
+            string body = Newtonsoft.Json.JsonConvert.SerializeObject(transactionData);
+
+            return $@"<html>
+                        <body>
+                        <center>Processing...<br /><img src=""ajax-loader.gif"" /></center>
+                        <script type=""text/javascript"" src=""{this.Config.GetUrl("/flwv3-pug/getpaidx/api/flwpbf-inline.js")}""></script>
+                        <script>
+                            document.addEventListener(""DOMContentLoaded"", function(event) {{
+                                var data = JSON.parse({body});
+                                getpaidSetup(data);
+                            }});
+                        </script>
+                        </body>
+                    </html>";
         }
 
         public async Task<ResponseModel<PaymentResponseModel>> RequeryTransaction(string transactionReference = null) {
