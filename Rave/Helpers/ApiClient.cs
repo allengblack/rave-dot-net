@@ -95,7 +95,14 @@ namespace Rave.Helpers
                 }
                 else
                 {
-                    throw new Exception("Remote Server did not return success status code (see inner)", new Exception(responseString));
+                    try
+                    {
+                        return JsonConvert.DeserializeObject<TClass>(responseString);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Remote Server did not return success status code (see inner)", new Exception(ex.Message, new Exception(responseString)));
+                    }
                 }
             }
         }
