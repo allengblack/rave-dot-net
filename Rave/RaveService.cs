@@ -1,8 +1,10 @@
 ﻿using System;
+using Rave.Events;
 
 namespace Rave
 {
-    public class RaveService
+    public class RaveService: RaveServiceEventHandler
     {
+        
     }
 }
