@@ -21,23 +21,7 @@ namespace Rave
             this.Request = request;
             this.hash = new SHA256Managed();
         }
-
-        // "amount" => $this->amount, 
-        //     "customer_email" => $this->customerEmail, 
-        //     "customer_firstname" => $this->customerFirstname, 
-        //     "txref" => $this->txref, 
-        //     "payment_method" => $this->paymentMethod, 
-        //     "customer_lastname" => $this->customerLastname, 
-        //     "country" => $this->country, 
-        //     "currency" => $this->currency, 
-        //     "custom_description" => $this->customDescription, 
-        //     "custom_logo" => $this->customLogo, 
-        //     "custom_title" => $this->customTitle, 
-        //     "customer_phone" => $this->customerPhone,
-        //     "pay_button_text" => $this->payButtonText,
-        //     "redirect_url" => $this->redirectUrl,
-        //     "hosted_payment" => 1
-
+        
         public string CreateCheckSum() {
             StringBuilder sb = new StringBuilder();
             sb.Append(this.Config.PublicKey);
