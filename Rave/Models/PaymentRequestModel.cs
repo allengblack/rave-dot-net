@@ -15,5 +15,18 @@ namespace Rave
         public string CustomerLastname { get; set; }
         public string CustomerPhone { get; set; }
         public string PaymentMethod { get; set; } = "both";
+        public string PayButtonText { get; set; }
+
+        public Func<string> GetTransactionReference { get; set; }
+        public string TransactionReference { 
+            get {
+                if (this.GetTransactionReference != null) {
+                    return this.GetTransactionReference();
+                }
+                else {
+                    return Guid.NewGuid().ToString();
+                }
+            }
+        }
     }
 }
