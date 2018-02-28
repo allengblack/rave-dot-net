@@ -18,13 +18,18 @@ namespace Rave
         public string PayButtonText { get; set; }
 
         public Func<string> GetTransactionReference { get; set; }
+
+        private string _transactionReference;
         public string TransactionReference { 
             get {
                 if (this.GetTransactionReference != null) {
                     return this.GetTransactionReference();
                 }
                 else {
-                    return Guid.NewGuid().ToString();
+                    if (String.IsNullOrEmpty(_transactionReference)) {
+                        return _transactionReference = Guid.NewGuid().ToString();
+                    }
+                    else return _transactionReference;
                 }
             }
         }
