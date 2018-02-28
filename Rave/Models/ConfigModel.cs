@@ -14,8 +14,8 @@ namespace Rave
         public string Env { get;  set; }
         public List<string> Meta { get;  set; }
         public string PayButtonText { get;  set; }
-        public string StagingUrl { get;  set; }
-        public string LiveUrl { get;  set; }
+        public string StagingUrl { get;  set; } = "https://rave-api-v2.herokuapp.com";
+        public string LiveUrl { get;  set; } = "https://api.ravepay.co";
         public string BaseUrl { 
             get {
                 if (this.Env == LIVE) {
@@ -25,6 +25,10 @@ namespace Rave
                     return this.StagingUrl;
                 }
             }
+        }
+
+        public string GetUrl(string url) {
+            return $"{this.BaseUrl}/{url}";
         }
     }
 }
