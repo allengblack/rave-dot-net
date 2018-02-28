@@ -3,11 +3,24 @@ using Newtonsoft.Json;
 
 namespace Rave
 {
+    public class ResponseModel {
+        public const string SUCCESS = "success";
+        public const string FAILED = "failed";
+    }
+
     public class ResponseModel<TData>
     {
         public string status { get; set; }
         public string message { get; set; }
         public TData data { get; set; }
+
+        public bool IsSuccessful() {
+            return this.status == ResponseModel.SUCCESS;
+        }
+
+        public bool IsFailed() {
+            return this.status == ResponseModel.FAILED;
+        }
     }
 
     public class PaymentResponseModel {
