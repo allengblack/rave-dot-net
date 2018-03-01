@@ -17,6 +17,7 @@ namespace Rave.Tests
             Meta = new List<string>(),
             RedirectUrl = "https://github.com/Flutterwave/Flutterwave-Rave-PHP-SDK"
         };
+
         private PaymentRequestModel request = new PaymentRequestModel() {
             CustomerEmail = "abc@mailinator.com",
             CustomerPhone = "08021123345",
@@ -31,7 +32,6 @@ namespace Rave.Tests
             PayButtonText = "Pay Me"
         };
         
-
         private RaveService _raveService;
 
         private void BeforeEach()

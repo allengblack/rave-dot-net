@@ -8,12 +8,15 @@ namespace Rave
         public const string STAGING = "staging";
         public const string LIVE = "live";
 
-        public string PublicKey { get; set; } = "FLWPUBK-c9bb5a3dade3ca9e8dce44569b628437-X";
+        public string PublicKey { get; set; } = "APP-PUBLIC-KEY";
     
-        public string SecretKey { get; set; } = "FLWSECK-fc3a929f74002bae3d5fd08edfc05926-X";
+        public string SecretKey { get; set; } = "APP-SECRET-KEY";
 
         public string RedirectUrl { get;  set; }
+
+        //Set as LIVE or STAGING
         public string Env { get;  set; }
+
         public List<string> Meta { get;  set; }
         public string PayButtonText { get;  set; }
         public string StagingUrl { get;  set; } = "https://rave-api-v2.herokuapp.com";
