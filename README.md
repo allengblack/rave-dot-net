@@ -1,24 +1,39 @@
-<h1>RAVE .NET SDK</h1>
+# RAVE .NET SDK
 
-Use this library to integrate your .NET app to Rave.
+Use this library to integrate your dotnet app to use the [Flutterwave Rave Payment Service](https://rave.flutterwave.com)
 
-Begin by looking at the `ConfigModel` class and configuring your Secret and Public keys (remember not to add those to version control!!!). 
+## Specs
 
-The value of the `Env` property of the `ConfigModel` (`LIVE` or `STAGING`) determines the `BaseUrl` or API endpoints used for your app.
+This library targets the dotnet standard 2.0
 
-Then you should populate a `PaymentRequestModel`. Edit this to contain all your request data however the request comes. It's really just a model.
+## How to install
 
-Next up is to implement Rave’s integrity checksum flow into your app and here is where you get introduced to the `RaveService` class
-which does all the heavy lifting for you. 
+To add the package to your .NET standard or core app via nuget, use the following terminal command:
 
+```bash
+dotnet add package rave-dotnet
 ```
+
+To install in a .NET framework application via the Package Management Console in Visual Studio:
+
+```cmd
+Install-Package rave-dotnet
+```
+
+## How to use
+
+To initialize,
+
+```cs
 private ConfigModel config = new ConfigModel()
 {
     Meta = new List<string>(),
-    RedirectUrl = "https://github.com/Flutterwave/Flutterwave-Rave-PHP-SDK",
-    Env = ConfigModel.STAGING
+    RedirectUrl = "https://your-app.com/rave", //callback to retrieve payment status
+    Env = ConfigModel.STAGING, //or ConfigModel.LIVE (for production)
+    PublicKey = "<YOUR-PUBLIC-KEY>",
+    SecretKey = "<YOUR-SECRET-KEY>"
 };
-        
+
 private PaymentRequestModel request = new PaymentRequestModel() {
     CustomerEmail = "abc@mailinator.com",
     CustomerPhone = "08021123345",
@@ -34,35 +49,62 @@ private PaymentRequestModel request = new PaymentRequestModel() {
 };
 
 RaveService raveService = new RaveService(config, request);
-
 ```
 
-The `RaveService`'s `CreateChecksum()` method returns a lowercase hashed string
-of all your `request` data (from your `PaymentRequestModel` and the keys you setup in your `ConfigModel`) and sorts it for you!
-This is your `integrity_hash` and it is ready to be sent to your client page.
+To render the payment page,
 
-For making your calls, you can use either the `RenderHtml()` or `RequeryTransaction()` methods.
-`RenderHtml` redirects you to a modal where transactions can be made using your custom data from your request model, or in the case of a bad integrity check, an error message pops up.
-
-```
-string htmlSnippet = raveService.RenderHtml();
-
+```cs
+raveService.RenderHtml(); //will generate an html string to be loaded on the client browser
 ```
 
-`RequeryTransaction` dumps the raw response from the developer for use as she sees fit.
+When the payment is done (success or failure), the user will be redirected to the Redirect URL you specified. You can retrieve the transaction reference from the URL as a query string.
 
-```
-ResponseModel<PaymentResponseModel> result = raveService.RequeryTransaction();
+To verify transaction,
 
-if(result.status == "success")
-{
-   //DO Something
+```cs
+var result = await raveService.RequeryTransaction("<THE-TRANSACTION-REFERENCE-YOU-RECEIVED>");
+
+if (result.IsSuccessful()) {
+    //do something
 }
-else
-{
-   //DO Something else
+else if (result.IsFailed()) {
+    //handle failure
 }
+else {
+    //indecisive
+}
+```
 
+You can also listen for events for tasks like logging transactions:
+
+```cs
+using Rave.Models.Events;
+```
+
+```cs
+raveService.SuccessEvent += ((object sender, SuccessEventArgs e) => {
+ //triggered on a successful payment
+});
+
+raveService.FailedEvent += ((object sender, CancelledEventArgs e) => {
+ //triggered on a failed payment
+});
+
+raveService.InitEvent += ((object sender, InitEventArgs e) => {
+ //triggered when you render html
+});
+
+raveService.RequeryEvent += ((object sender, RequeryEventArgs e) => {
+ //triggered when a verification (requery) request is created
+});
+
+raveService.RequeryErrorEvent += ((object sender, RequeryErrorEventArgs e) => {
+ //triggered when verification fails
+});
+
+raveService.TimeoutEvent += ((object sender, TimeoutEventArgs e) => {
+ //triggered during verification request timeout
+});
 ```
 
 It's that easy to use!
