@@ -5,59 +5,59 @@ namespace Rave.Events
 {
     public class RaveServiceEventHandler: IRaveServiceEventHandler
     {
-        public event EventHandler InitEventHandler;
-        public event EventHandler SuccessEventHandler;
-        public event EventHandler FailedEventHandler;
-        public event EventHandler RequeryEventHandler;
-        public event EventHandler RequeryErrorEventHandler;
-        public event EventHandler CancelledEventHandler;
-        public event EventHandler TimeoutEventHandler;
+        public event EventHandler InitEvent;
+        public event EventHandler SuccessEvent;
+        public event EventHandler FailedEvent;
+        public event EventHandler RequeryEvent;
+        public event EventHandler RequeryErrorEvent;
+        public event EventHandler CancelledEvent;
+        public event EventHandler TimeoutEvent;
 
         public void OnInit(InitEventArgs e) {
-            EventHandler handler = InitEventHandler;
-            if (InitEventHandler != null) {
+            EventHandler handler = InitEvent;
+            if (InitEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnSuccess(SuccessEventArgs e) {
-            EventHandler handler = SuccessEventHandler;
-            if (SuccessEventHandler != null) {
+            EventHandler handler = SuccessEvent;
+            if (SuccessEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnFailed(FailedEventArgs e) {
-            EventHandler handler = FailedEventHandler;
-            if (FailedEventHandler != null) {
+            EventHandler handler = FailedEvent;
+            if (FailedEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnRequery(RequeryEventArgs e) {
-            EventHandler handler = RequeryEventHandler;
-            if (RequeryEventHandler != null) {
+            EventHandler handler = RequeryEvent;
+            if (RequeryEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnRequeryError(RequeryErrorEventArgs e) {
-            EventHandler handler = RequeryErrorEventHandler;
-            if (RequeryErrorEventHandler != null) {
+            EventHandler handler = RequeryErrorEvent;
+            if (RequeryErrorEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnCancelled(CancelledEventArgs e) {
-            EventHandler handler = CancelledEventHandler;
-            if (CancelledEventHandler != null) {
+            EventHandler handler = CancelledEvent;
+            if (CancelledEvent != null) {
                 handler(this, e);
             }
         }
 
         public void OnTimeout(TimeoutEventArgs e) {
-            EventHandler handler = TimeoutEventHandler;
-            if (TimeoutEventHandler != null) {
+            EventHandler handler = TimeoutEvent;
+            if (TimeoutEvent != null) {
                 handler(this, e);
             }
         }
