@@ -28,8 +28,7 @@ namespace Rave.Tests
             CustomerLastname = "Def",
             CustomLogo = "none",
             CustomTitle = "Mr.",
-            PayButtonText = "Pay Me",
-            GetTransactionReference = () => "x12345y"
+            PayButtonText = "Pay Me"
         };
         
 
@@ -81,8 +80,7 @@ namespace Rave.Tests
         [Fact]
         public void Transaction_Reference_Does_Not_Change() {
             BeforeEach();
-
-            Console.WriteLine(request.TransactionReference);
+            
             Assert.Equal(request.TransactionReference, request.TransactionReference);
         }
     }

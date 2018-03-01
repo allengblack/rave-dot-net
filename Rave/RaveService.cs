@@ -73,7 +73,6 @@ namespace Rave
             sb.Append(this.Config.SecretKey);
 
             string payload = sb.ToString();
-            Console.WriteLine(payload);
             byte[] bytes = Encoding.UTF8.GetBytes(payload);
             
             byte[] transformedBytes = hash.ComputeHash(bytes);
