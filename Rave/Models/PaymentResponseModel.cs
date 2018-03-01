@@ -1,8 +1,8 @@
 using System;
 using Newtonsoft.Json;
-using Rave.Models.Converters;
+using RaveDotNet.Models.Converters;
 
-namespace Rave
+namespace RaveDotNet
 {
     public class ResponseModel {
         public const string SUCCESS = "success";

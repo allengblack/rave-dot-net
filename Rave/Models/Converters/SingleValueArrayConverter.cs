@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Rave.Models.Converters
+namespace RaveDotNet.Models.Converters
 {
     public class SingleValueArrayConverter<T>: JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rave
+namespace RaveDotNet
 {
     public class ConfigModel
     {

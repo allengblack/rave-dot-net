@@ -1,6 +1,6 @@
 using System;
 
-namespace Rave.Models.Events
+namespace RaveDotNet.Models.Events
 {
     public class RequeryErrorEventArgs: EventArgs
     {

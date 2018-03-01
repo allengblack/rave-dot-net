@@ -1,15 +1,13 @@
-﻿using System;
-using Rave.Events;
-using Rave.Models;
-using Rave.Models.Events;
-using System.Text;
-using System.IO;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
+﻿using RaveDotNet.Events;
+using RaveDotNet.Helpers;
+using RaveDotNet.Models.Events;
+using System;
 using System.Linq;
-using Rave.Helpers;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Rave
+namespace RaveDotNet
 {
     public class RaveService: RaveServiceEventHandler
     {

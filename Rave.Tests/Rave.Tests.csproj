@@ -13,6 +13,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rave\Rave.csproj" />
+    <ProjectReference Include="..\Rave\RaveDotNet.csproj" />
   </ItemGroup>
 </Project>

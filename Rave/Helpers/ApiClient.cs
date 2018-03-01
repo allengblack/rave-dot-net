@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace Rave.Helpers
+namespace RaveDotNet.Helpers
 {
     public class ApiClient : IApiClient
     {

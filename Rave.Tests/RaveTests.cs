@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RaveDotNet.Models.Events;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Sdk;
-using Newtonsoft.Json;
 
-namespace Rave.Tests
+namespace RaveDotNet.Tests
 {
     public class RaveTests
     {
@@ -64,7 +61,7 @@ namespace Rave.Tests
             BeforeEach();
 
             var result = await _raveService.RequeryTransaction("FLW-MOCK-2601f4c66bf818a6b8cd2795baca116f");
-            _raveService.SuccessEvent += ((object sender, Rave.Models.Events.SuccessEventArgs e) => {
+            _raveService.SuccessEvent += ((object sender, SuccessEventArgs e) => {
                 
             });
             var path = Directory.GetCurrentDirectory() + "../../../../../payment-result.json";
@@ -77,7 +74,7 @@ namespace Rave.Tests
         public void Json_Can_Convert_To_Response_Model() {
             BeforeEach();
 
-            var result = JsonConvert.DeserializeObject<Rave.ResponseModel<Rave.PaymentResponseModel>>("{\"status\":\"success\",\"message\":\"Tx Fetched\",\"data\":[]}");
+            var result = JsonConvert.DeserializeObject<ResponseModel<PaymentResponseModel>>("{\"status\":\"success\",\"message\":\"Tx Fetched\",\"data\":[]}");
         }
 
         [Fact]

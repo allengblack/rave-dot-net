@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rave", "Rave\Rave.csproj", "{6779BD88-43FC-49F0-8A3D-5A91AD01A422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaveDotNet", "Rave\RaveDotNet.csproj", "{6779BD88-43FC-49F0-8A3D-5A91AD01A422}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rave.Tests", "Rave.Tests\Rave.Tests.csproj", "{5DE7EC8A-341C-426A-BDD7-4F7C759F6754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rave.Tests", "Rave.Tests\Rave.Tests.csproj", "{5DE7EC8A-341C-426A-BDD7-4F7C759F6754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

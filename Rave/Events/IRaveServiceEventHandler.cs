@@ -1,7 +1,6 @@
-using System;
-using Rave.Models.Events;
+using RaveDotNet.Models.Events;
 
-namespace Rave.Events
+namespace RaveDotNet.Events
 {
     public interface IRaveServiceEventHandler
     {

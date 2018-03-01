@@ -1,6 +1,6 @@
 using System;
 
-namespace Rave
+namespace RaveDotNet
 {
     public class PaymentRequestModel
     {
