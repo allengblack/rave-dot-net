@@ -14,12 +14,21 @@ namespace Rave.Tests
     {
         private ConfigModel config = new ConfigModel()
         {
-            Meta = new List<string>()
-            
+            Meta = new List<string>(),
+            RedirectUrl = "https://github.com/Flutterwave/Flutterwave-Rave-PHP-SDK"
         };
         private PaymentRequestModel request = new PaymentRequestModel() {
             CustomerEmail = "abc@mailinator.com",
-            CustomerPhone = "08021123345"
+            CustomerPhone = "08021123345",
+            Amount = 1000,
+            Country = "Nigeria",
+            Currency = "NGN",
+            CustomDescription = "xyz",
+            CustomerFirstname = "Abc",
+            CustomerLastname = "Def",
+            CustomLogo = "none",
+            CustomTitle = "Mr.",
+            PayButtonText = "Pay Me"
         };
         
 
@@ -55,6 +64,7 @@ namespace Rave.Tests
             BeforeEach();
 
             var result = await _raveService.RequeryTransaction("FLW-MOCK-2601f4c66bf818a6b8cd2795baca116f");
+            Assert.Equal("success", result.status);
 
             var path = Directory.GetCurrentDirectory() + "../../../../../payment-result.json";
             System.IO.File.WriteAllText(path, Newtonsoft.Json.JsonConvert.SerializeObject(result));

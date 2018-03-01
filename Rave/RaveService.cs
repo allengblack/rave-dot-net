@@ -53,7 +53,7 @@ namespace Rave
             StringBuilder sb = new StringBuilder();
 
             sb.Append(this.Config.PublicKey);
-            sb.Append(Convert.ToString(this.Request.Amount));
+            sb.Append(Convert.ToString(Convert.ToInt32(this.Request.Amount)));
             sb.Append(this.Request.Country);
             sb.Append(this.Request.Currency);
             sb.Append(this.Request.CustomDescription);
@@ -76,7 +76,7 @@ namespace Rave
             
             byte[] transformedBytes = hash.ComputeHash(bytes);
             
-            return this.IntegrityHash = BitConverter.ToString(transformedBytes);
+            return this.IntegrityHash = BitConverter.ToString(transformedBytes).ToLower();
         }
 
         public string RenderHtml() {
