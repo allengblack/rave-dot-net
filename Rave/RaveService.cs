@@ -21,32 +21,32 @@ namespace Rave
                 return new {
                     PBFPubKey = this.Config.PublicKey, 
                     amount = this.Request.Amount, 
-                    customer_email = this.Request.CustomerEmail, 
-                    customer_firstname = this.Request.CustomerFirstname, 
-                    txref = this.Request.TransactionReference, 
-                    payment_method = this.Request.PaymentMethod, 
-                    customer_lastname = this.Request.CustomerLastname, 
                     country = this.Request.Country, 
                     currency = this.Request.Currency, 
                     custom_description = this.Request.CustomDescription, 
                     custom_logo = this.Request.CustomLogo, 
                     custom_title = this.Request.CustomTitle, 
+                    customer_email = this.Request.CustomerEmail, 
+                    customer_firstname = this.Request.CustomerFirstname, 
+                    customer_lastname = this.Request.CustomerLastname, 
                     customer_phone = this.Request.CustomerPhone,
-                    pay_button_text = this.Request.PayButtonText,
-                    redirect_url = this.Config.RedirectUrl,
                     hosted_payment = 1,
                     integrity_hash = this.IntegrityHash,
-                    meta = this.Config.Meta
+                    meta = this.Config.Meta,
+                    pay_button_text = this.Request.PayButtonText,
+                    payment_method = this.Request.PaymentMethod, 
+                    redirect_url = this.Config.RedirectUrl,
+                    txref = this.Request.TransactionReference
                 };
             }
         }
 
-        protected SHA256Managed hash;
+        protected SHA256 hash;
 
         public RaveService(ConfigModel config, PaymentRequestModel request) {
             this.Config = config;
             this.Request = request;
-            this.hash = new SHA256Managed();
+            this.hash = SHA256.Create();
         }
         
         public string CreateCheckSum() {
@@ -66,7 +66,7 @@ namespace Rave
             sb.Append(1); //HostedPayment
             sb.Append(this.Request.PayButtonText);
             sb.Append(this.Request.PaymentMethod);
-            sb.Append(this.Config.RedirectUrl);
+            sb.Append(this.Config.RedirectUrl); 
             sb.Append(this.Request.TransactionReference);
 
             sb.Append(this.Config.SecretKey);
@@ -76,7 +76,7 @@ namespace Rave
             
             byte[] transformedBytes = hash.ComputeHash(bytes);
             
-            return this.IntegrityHash = Encoding.UTF8.GetString(transformedBytes);
+            return this.IntegrityHash = BitConverter.ToString(transformedBytes);
         }
 
         public string RenderHtml() {
@@ -86,7 +86,7 @@ namespace Rave
                 
             });
 
-            string body = Newtonsoft.Json.JsonConvert.SerializeObject(transactionData);
+            string body = Newtonsoft.Json.JsonConvert.SerializeObject(transactionData, Newtonsoft.Json.Formatting.Indented);
 
             return $@"<html>
                         <body>
@@ -116,7 +116,7 @@ namespace Rave
             };
             
             try {
-                var result = await client.Post<ResponseModel<PaymentResponseModel>>(this.Config.GetUrl("/flwv3-pug/getpaidx/api/xrequery"), ApiClient.GetJsonContent<object>(body));
+                var result = await client.Post<ResponseModel<PaymentResponseModel>>(this.Config.GetUrl("flwv3-pug/getpaidx/api/xrequery"), ApiClient.GetJsonContent<object>(body));
 
                 if (result.IsSuccessful()) {
                     this.OnSuccess(new SuccessEventArgs() {
@@ -149,6 +149,7 @@ namespace Rave
                 this.OnRequeryError(new RequeryErrorEventArgs() {
                     Error = ex
                 });
+                throw ex;
             }
             return null;
         }

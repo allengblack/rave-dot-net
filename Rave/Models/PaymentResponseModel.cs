@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using Rave.Models.Converters;
 
 namespace Rave
 {
@@ -12,7 +13,7 @@ namespace Rave
     {
         public string status { get; set; }
         public string message { get; set; }
-        public TData data { get; set; }
+        public dynamic data { get; set; }
 
         public bool IsSuccessful() {
             return this.status == ResponseModel.SUCCESS;

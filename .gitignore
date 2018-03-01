@@ -212,3 +212,5 @@ _Pvt_Extensions/
 ModelManifest.xml
 /MSearch/MSearch.nuspec
 render.html
+.vscode
+payment-result.json

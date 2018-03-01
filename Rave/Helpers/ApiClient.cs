@@ -91,6 +91,7 @@ namespace Rave.Helpers
                     catch (Exception ex)
                     {
                         throw new Exception("Error when attempting to convert to json (see inner)", new Exception(ex.Message, new Exception(responseString)));
+                        Console.WriteLine(responseString);
                     }
                 }
                 else
