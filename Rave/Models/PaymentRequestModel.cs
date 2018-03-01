@@ -27,7 +27,8 @@ namespace Rave
                 }
                 else {
                     if (String.IsNullOrEmpty(_transactionReference)) {
-                        return _transactionReference = Guid.NewGuid().ToString();
+                        _transactionReference = Guid.NewGuid().ToString();
+                        return _transactionReference;
                     }
                     else return _transactionReference;
                 }

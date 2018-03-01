@@ -28,7 +28,8 @@ namespace Rave.Tests
             CustomerLastname = "Def",
             CustomLogo = "none",
             CustomTitle = "Mr.",
-            PayButtonText = "Pay Me"
+            PayButtonText = "Pay Me",
+            GetTransactionReference = () => "x12345y"
         };
         
 
@@ -75,6 +76,14 @@ namespace Rave.Tests
             BeforeEach();
 
             var result = JsonConvert.DeserializeObject<Rave.ResponseModel<Rave.PaymentResponseModel>>("{\"status\":\"success\",\"message\":\"Tx Fetched\",\"data\":[]}");
+        }
+
+        [Fact]
+        public void Transaction_Reference_Does_Not_Change() {
+            BeforeEach();
+
+            Console.WriteLine(request.TransactionReference);
+            Assert.Equal(request.TransactionReference, request.TransactionReference);
         }
     }
 }

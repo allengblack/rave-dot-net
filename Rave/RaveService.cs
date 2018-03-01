@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Linq;
 using Rave.Helpers;
 
 namespace Rave
@@ -71,12 +72,13 @@ namespace Rave
 
             sb.Append(this.Config.SecretKey);
 
-            string payload = sb.ToString().ToLower();
+            string payload = sb.ToString();
+            Console.WriteLine(payload);
             byte[] bytes = Encoding.UTF8.GetBytes(payload);
             
             byte[] transformedBytes = hash.ComputeHash(bytes);
-            
-            return this.IntegrityHash = BitConverter.ToString(transformedBytes).ToLower();
+
+            return this.IntegrityHash = string.Join("", transformedBytes.Select(bt => bt.ToString("x2"))).ToLower();
         }
 
         public string RenderHtml() {
