@@ -11,13 +11,13 @@ This library targets the dotnet standard 2.0
 To add the package to your .NET standard or core app via nuget, use the following terminal command:
 
 ```bash
-dotnet add package rave-dotnet
+dotnet add package RaveDotNet
 ```
 
 To install in a .NET framework application via the Package Management Console in Visual Studio:
 
 ```cmd
-Install-Package rave-dotnet
+Install-Package RaveDotNet
 ```
 
 ## How to use
