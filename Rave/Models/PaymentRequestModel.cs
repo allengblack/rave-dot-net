@@ -20,6 +20,7 @@ namespace Rave
         public Func<string> GetTransactionReference { get; set; }
 
         private string _transactionReference;
+
         public string TransactionReference { 
             get {
                 if (this.GetTransactionReference != null) {
