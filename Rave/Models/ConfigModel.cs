@@ -8,8 +8,10 @@ namespace Rave
         public const string STAGING = "staging";
         public const string LIVE = "live";
 
-        public string PublicKey { get;  set; }
-        public string SecretKey { get;  set; }
+        public string PublicKey { get; set; } = "FLWPUBK-c9bb5a3dade3ca9e8dce44569b628437-X";
+    
+        public string SecretKey { get; set; } = "FLWSECK-fc3a929f74002bae3d5fd08edfc05926-X";
+
         public string RedirectUrl { get;  set; }
         public string Env { get;  set; }
         public List<string> Meta { get;  set; }

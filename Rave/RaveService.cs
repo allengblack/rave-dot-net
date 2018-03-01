@@ -48,28 +48,30 @@ namespace Rave
             this.Request = request;
             this.hash = new SHA256Managed();
         }
-
+        
         public string CreateCheckSum() {
             StringBuilder sb = new StringBuilder();
+
             sb.Append(this.Config.PublicKey);
             sb.Append(Convert.ToString(this.Request.Amount));
-            sb.Append(this.Request.CustomerEmail);
-            sb.Append(this.Request.CustomerFirstname);
-            sb.Append(this.Request.TransactionReference);
-            sb.Append(this.Request.PaymentMethod);
-            sb.Append(this.Request.CustomerLastname);
             sb.Append(this.Request.Country);
             sb.Append(this.Request.Currency);
             sb.Append(this.Request.CustomDescription);
             sb.Append(this.Request.CustomLogo);
             sb.Append(this.Request.CustomTitle);
+            sb.Append(this.Request.CustomerEmail);
+            sb.Append(this.Request.CustomerFirstname);
+            sb.Append(this.Request.CustomerLastname);
             sb.Append(this.Request.CustomerPhone);
-            sb.Append(this.Request.PayButtonText);
-            sb.Append(this.Config.RedirectUrl);
             sb.Append(1); //HostedPayment
+            sb.Append(this.Request.PayButtonText);
+            sb.Append(this.Request.PaymentMethod);
+            sb.Append(this.Config.RedirectUrl);
+            sb.Append(this.Request.TransactionReference);
+
             sb.Append(this.Config.SecretKey);
 
-            string payload = sb.ToString();
+            string payload = sb.ToString().ToLower();
             byte[] bytes = Encoding.UTF8.GetBytes(payload);
             
             byte[] transformedBytes = hash.ComputeHash(bytes);
@@ -89,10 +91,10 @@ namespace Rave
             return $@"<html>
                         <body>
                         <center>Processing...<br /><img src=""ajax-loader.gif"" /></center>
-                        <script type=""text/javascript"" src=""{this.Config.GetUrl("/flwv3-pug/getpaidx/api/flwpbf-inline.js")}""></script>
+                        <script type=""text/javascript"" src='{this.Config.GetUrl("flwv3-pug/getpaidx/api/flwpbf-inline.js")}'></script>
                         <script>
                             document.addEventListener(""DOMContentLoaded"", function(event) {{
-                                var data = JSON.parse({body});
+                                var data = {body};
                                 getpaidSetup(data);
                             }});
                         </script>
