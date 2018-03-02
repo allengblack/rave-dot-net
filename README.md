@@ -50,6 +50,17 @@ private PaymentRequestModel request = new PaymentRequestModel() {
 
 RaveService raveService = new RaveService(config, request);
 ```
+To specify a custom Transaction reference, while configuring your `PaymentRequestModel`, you can configure a transaction reference like so:
+
+```
+private PaymentRequestModel request = new PaymentRequestModel() {
+// other configurations here...
+
+    new PaymentRequestModel() {
+        GetTransactionReference = () => "my-tx-ref-01"
+    };
+}
+```
 
 To render the payment page,
 
