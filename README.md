@@ -52,7 +52,7 @@ RaveService raveService = new RaveService(config, request);
 ```
 To specify a custom Transaction reference, while configuring your `PaymentRequestModel`, you can configure a transaction reference like so:
 
-```
+```cs
 private PaymentRequestModel request = new PaymentRequestModel() {
 // other configurations here...
 
